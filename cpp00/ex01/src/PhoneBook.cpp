@@ -19,11 +19,11 @@ int PhoneBook::takeField(std::string &field, const std::string output) //referan
     while (1)
     {
         std::cout << "Enter a " << output;
-        std::cin >> field;
+        std::getline(std::cin, field);
         if (std::cin.eof())
             return (1);
-        if (field.empty())
-            std::cout << "Enter a " << output;
+        if (field.empty() || field == " ")
+            continue;
         else
             return (0);
     }
