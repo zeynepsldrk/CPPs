@@ -3,6 +3,7 @@
 
 #include "Contact.hpp"
 #include <iostream>
+#include <iomanip>
 
 class PhoneBook
 {
@@ -17,7 +18,7 @@ class PhoneBook
         int getTotalContacts() const;
         void addContact();
         void searchContact() const;
-        int PhoneBook::takeField(std::string *field, const std::string output);
+        int takeField(std::string &field, const std::string output);
 };
 
 #endif

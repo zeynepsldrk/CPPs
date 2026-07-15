@@ -14,22 +14,22 @@ int PhoneBook::getTotalContacts() const
     return totalContacts;
 }
 
-int PhoneBook::takeField(std::string *field, const std::string output)
+int PhoneBook::takeField(std::string &field, const std::string output) //referans ile field gönderdim çünkü referans null olamaz pointer null olabilir.
 {
     while (1)
     {
         std::cout << "Enter a " << output;
-        std::cin >> *field;
+        std::cin >> field;
         if (std::cin.eof())
             return (1);
-        if (field->empty())
+        if (field.empty())
             std::cout << "Enter a " << output;
         else
             return (0);
     }
 }
 
-void PhoneBook::addContact()
+void PhoneBook::addContact() //!! enter girince yeniden isim sormuyor, boşlukta da aynı
 {
     int count = 0;
     std::string firstName;
@@ -42,41 +42,39 @@ void PhoneBook::addContact()
     {
         if (count == 0)
         {
-            if(takeField(&firstName, "first name:"))
+            if(takeField(firstName, "first name:"))
                 break;
             else
                 count++;
         }
         else if (count == 1)
         {
-            if(takeField(&lastName, "last name:"))
+            if(takeField(lastName, "last name:"))
                 break;
             else
                 count++;
         }
         else if (count == 2)
         {
-            if(takeField(&nickName, "nick name:"))
+            if(takeField(nickName, "nick name:"))
                 break;
             else
                 count++;
         }
         else if (count == 3)
         {
-            if(takeField(&phoneNumber, "phone number:"))
+            if(takeField(phoneNumber, "phone number:"))
                 break;
             else
                 count++;
         }
         else if (count  == 4)
         {
-            if(takeField(&darkestSecret, "secret:"))
+            if(takeField(darkestSecret, "secret:"))
                 break;
             else
                 count++;
         }
-        else
-            break;
     }
     int index = totalContacts % 8;
 
