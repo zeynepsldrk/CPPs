@@ -1,10 +1,14 @@
 CC      = c++
-CFLAGS  = -Wall -Wextra -Werror -std=c++98
+CFLAGS  = -Wall -Wextra -Werror -std=c++98 -Iincludes
 
 NAME    = phonebook
+
+SRC_DIR = src
+
 SRCS    = main.cpp \
-		  Contact.cpp \
-		  PhoneBook.cpp
+		  src/Contact.cpp \
+		  src/PhoneBook.cpp
+
 OBJS    = $(SRCS:.cpp=.o)
 
 all: $(NAME)
