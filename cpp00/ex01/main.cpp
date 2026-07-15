@@ -8,7 +8,7 @@ int main()
 
     while (1) {
         std::cout << "SELECT AN ACTİON -> ADD, SEARCH, EXIT: ";
-        std::cin >> input;
+        std::getline(std::cin, input);
 
         if (std::cin.eof())
 			break ;
