@@ -26,27 +26,28 @@ int PhoneBook::getTotalContacts() const
 
 int PhoneBook::takeField(std::string &field, const std::string output) //referans ile field gönderdim çünkü referans null olamaz pointer null olabilir.
 {
-    bool isBlank = true;
-    for (size_t i = 0; i < field.size(); i++)
-    {
-        if (!std::isspace(static_cast<unsigned char>(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
-        //de var onların oluşturabileceği sorunları engellemk için işaretsiz char a cast ederiz
-        {
-            isBlank = false;
-            break;
-        }
-    }
     while (1)
     {
         std::cout << "Enter a " << output;
         std::getline(std::cin, field);
         if (std::cin.eof())
             return (1);
+        bool isBlank = true;
+        for (size_t i = 0; i < field.size(); i++)
+        {
+            if (!std::isspace(static_cast<unsigned char>(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
+            //de var onların oluşturabileceği sorunları engellemk için işaretsiz char a cast ederiz
+            {
+                isBlank = false;
+                break;
+            }
+        }
         if (field.empty() || isBlank)
             continue;
         else
             return (0);
     }
+    std::cout << "k" << output;
 }
 
 void PhoneBook::addContact()
@@ -146,12 +147,45 @@ void PhoneBook::searchContact() const
         i++;
     }
 
+    std::string promptStr;
     int prompt;
+    bool isNumber;
     i = 0;
+
     std::cout << std::endl;
     std::cout << "Enter the index of the contact to view details: ";
-    std::cin >> prompt;
-    if (index >= prompt || prompt <= 0 || prompt > index + 1)
+
+    std::getline(std::cin, promptStr);
+    isNumber = !promptStr.empty();
+    for (size_t j = 0; j < promptStr.size(); j++)
+    {
+        if (!std::isdigit(static_cast<unsigned char>(promptStr[j])))
+        {
+            isNumber = false;
+            break;
+        }
+    }
+    /*
+    stringstream, bir string'i sanki bir giriş akışı gibi kullanmanı sağlıyor
+    yani std::cin gibi davranıyor ama klavyeden değil, senin verdiğin string'den okuyor.
+    Neden cin >> prompt yerine bunu kullanıyoruz da hata olmuyor?
+    Çünkü burada risk aldığımız yer zaten güvenli hale getirilmiş: ss'in içine koyduğumuz 
+    promptStr'in her karakterinin rakam olduğunu zaten önceden isNumber kontrolüyle doğrulamıştık.
+    Yani ss >> prompt işlemi asla "geçersiz" bir string ile karşılaşmıyor, bu yüzden stringstream'in kendi failbit'i devreye girmiyor.
+    cin'i doğrudan kullanmadığımız için de programın ana giriş akışı (std::cin) hiç bozulmuyor.
+    */
+
+    prompt = 0;
+    if (isNumber)
+    {
+        /*ss adında bir "sahte input stream" oluşturuyoruz.
+        İçine promptStr string'ini koyuyoruz.
+        Tıpkı std::cin >> prompt; gibi, ama klavyeden değil ss'in içindeki string'den okuyor.*/
+        std::stringstream ss(promptStr);
+        ss >> prompt;
+    }
+
+    if (index >= prompt || prompt <= 0 || prompt > index + 1 || prompt > 8)
     {
         std::cout << "Non-existent contact." << std::endl;
     }
