@@ -21,8 +21,6 @@ int main()
             std::cout << "See you later! Alligator (._.)" << std::endl;
             break;
         }
-        else 
-            std::cout << "Invalid action. Please try again." << std::endl;
     }
     return 0;
 }
