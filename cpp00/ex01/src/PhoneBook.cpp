@@ -26,13 +26,23 @@ int PhoneBook::getTotalContacts() const
 
 int PhoneBook::takeField(std::string &field, const std::string output) //referans ile field gönderdim çünkü referans null olamaz pointer null olabilir.
 {
+    bool isBlank = true;
+    for (size_t i = 0; i < field.size(); i++)
+    {
+        if (!std::isspace(static_cast<unsigned char>(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
+        //de var onların oluşturabileceği sorunları engellemk için işaretsiz char a cast ederiz
+        {
+            isBlank = false;
+            break;
+        }
+    }
     while (1)
     {
         std::cout << "Enter a " << output;
         std::getline(std::cin, field);
         if (std::cin.eof())
             return (1);
-        if (field.empty() || field == " ") //!!tek boşluk yeterli değil diğer tab gibi karakterleri ve birden fazla boşluğu kontrol eden bir fonksiyon gerekli
+        if (field.empty() || isBlank)
             continue;
         else
             return (0);
@@ -86,17 +96,21 @@ void PhoneBook::addContact()
                 count++;
         }
     }
-    index = totalContacts % 8;
 
-    contacts[index].setFirstName(firstName);
-    contacts[index].setLastName(lastName);
-    contacts[index].setNickName(nickName);
-    contacts[index].setPhoneNumber(phoneNumber);
-    contacts[index].setDarkestSecret(darkestSecret);
+    if (count == 5) //5 alanda sorunsuz doldurulduysa, yani boş alan yoksa, contact eklenir
+    {
+        index = totalContacts % 8;
 
-    totalContacts++;
+        contacts[index].setFirstName(firstName);
+        contacts[index].setLastName(lastName);
+        contacts[index].setNickName(nickName);
+        contacts[index].setPhoneNumber(phoneNumber);
+        contacts[index].setDarkestSecret(darkestSecret);
 
-    std::cout << "Contact added!" << std::endl;
+        totalContacts++;
+
+        std::cout << "Contact added!" << std::endl;        
+    }
 }
 
 void PhoneBook::searchContact() const
@@ -110,22 +124,22 @@ void PhoneBook::searchContact() const
     std::cout << "|" <<std::setw(10) << std::right << "Index" << "|";
     std::cout << std::setw(10) << std::right << "First Name" << "|";
     std::cout << std::setw(10) << std::right << "Last Name" << "|";
-    std::cout << std::setw(10) << std::right << "Nickname|" << std::endl;
+    std::cout << std::setw(10) << std::right << "Nickname" << "|" <<std::endl;
     std::cout << "---------------------------------------------" << std::endl;
 
     int i = 0;
     while (i < totalContacts && i < 8)
     {
         std::cout << "|" << std::setw(10) << std::right << i + 1 << "|";
-        if (contacts[i].getFirstName().length() >= 10)
+        if (contacts[i].getFirstName().length() > 10)
             std::cout << std::setw(10) << std::right << contacts[i].getFirstName().substr(0, 9) + "." << "|";
         else
             std::cout << std::setw(10) << std::right << contacts[i].getFirstName() << "|";
-        if (contacts[i].getLastName().length() >= 10)
+        if (contacts[i].getLastName().length() > 10)
             std::cout << std::setw(10) << std::right << contacts[i].getLastName().substr(0, 9) + "." << "|";
         else
             std::cout << std::setw(10) << std::right << contacts[i].getLastName() << "|";
-        if (contacts[i].getNickName().length() >= 10)
+        if (contacts[i].getNickName().length() > 10)
             std::cout << std::setw(10) << std::right << contacts[i].getNickName().substr(0, 9) + "." << "|" << std::endl;
         else
             std::cout << std::setw(10) << std::right << contacts[i].getNickName() << "|" << std::endl;
