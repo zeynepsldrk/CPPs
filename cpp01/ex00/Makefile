@@ -1,24 +1,18 @@
-CC      = c++
-CFLAGS  = -Wall -Wextra -Werror -std=c++98 -Iincludes
+NAME	= zombie
 
-NAME    = phonebook
+SRCS	= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+OBJS	= $(SRCS:.cpp=.o)
 
-SRC_DIR = src
-
-SRCS    = main.cpp \
-		  src/newZombie.cpp \
-		  src/randomChump.cpp \
-		  src/Zombie.cpp
-
-OBJS    = $(SRCS:.cpp=.o)
+CC	= c++
+CFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:
 	rm -f $(OBJS)
