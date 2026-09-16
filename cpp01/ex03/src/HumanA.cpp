@@ -1,9 +1,8 @@
 #include "HumanA.hpp"
 
-HumanA(Weapon weapon);
+HumanA::HumanA(std::string name, Weapon weapon){}
 
-std::string getName() const;
-
-void setName(std::string name);
-
-void attack();
+void HumanA::attack()
+{
+    
+}
