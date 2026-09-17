@@ -1,9 +1,18 @@
 #include "HumanB.hpp"
 
-HumanB(std::string name);
+HumanB::HumanB(std::string name){}
 
-std::string getName() const;
+std::string HumanB::getName() const
+{
+ return name;
+}
 
-void setName(std::string name);
+void HumanB::setName(std::string name)
+{
+ this->name = name;
+}
 
-void attack();
+void attack()
+{
+    std::cout << name << " attacks with their " << getType() << std::endl;
+}
