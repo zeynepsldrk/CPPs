@@ -7,7 +7,7 @@ int main()
     std::string input;
 
     while (1) {
-        std::cout << "SELECT AN ACTİON -> ADD, SEARCH, EXIT: ";
+        std::cout << "SELECT AN ACTION -> ADD, SEARCH, EXIT: ";
         std::getline(std::cin, input);
 
         if (std::cin.eof())
