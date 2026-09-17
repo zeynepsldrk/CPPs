@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <cctype>
 
 class PhoneBook
 {
@@ -16,10 +17,6 @@ class PhoneBook
     public:
         PhoneBook();
         ~PhoneBook();
-        void setTotalContacts(int totalContacts);
-        int getTotalContacts() const;
-        void setIndex(int index);
-        int getIndex() const;
         void addContact();
         void searchContact() const;
         int takeField(std::string &field, const std::string output);

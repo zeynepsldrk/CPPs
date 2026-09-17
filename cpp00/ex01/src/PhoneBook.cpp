@@ -4,26 +4,6 @@ PhoneBook::PhoneBook() : totalContacts(0), index(0){} //int bir ilkel (primitive
 // eğer sen elle bir değer vermezsen, çöp (garbage) değer kalır, yani bellekte o an ne varsa o kalır
 PhoneBook::~PhoneBook() {}
 
-void PhoneBook::setIndex(int index)
-{
-    this->index = index;
-}
-
-int PhoneBook::getIndex() const
-{
-    return index;
-}
-
-void PhoneBook::setTotalContacts(int totalContacts)
-{
-    this->totalContacts = totalContacts;
-}
-
-int PhoneBook::getTotalContacts() const
-{
-    return totalContacts;
-}
-
 int PhoneBook::takeField(std::string &field, const std::string output) //referans ile field gönderdim çünkü referans null olamaz pointer null olabilir.
 {
     while (1)
@@ -35,7 +15,7 @@ int PhoneBook::takeField(std::string &field, const std::string output) //referan
         bool isBlank = true;
         for (size_t i = 0; i < field.size(); i++)
         {
-            if (!std::isspace(static_cast<unsigned char>(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
+            if (!std::isspace((unsigned char)(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
             //de var onların oluşturabileceği sorunları engellemk için işaretsiz char a cast ederiz
             {
                 isBlank = false;
@@ -47,7 +27,6 @@ int PhoneBook::takeField(std::string &field, const std::string output) //referan
         else
             return (0);
     }
-    std::cout << "k" << output;
 }
 
 void PhoneBook::addContact()
