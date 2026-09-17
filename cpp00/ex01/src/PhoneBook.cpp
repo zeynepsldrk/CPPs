@@ -1,6 +1,6 @@
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : totalContacts(0), index(0){} //int bir ilkel (primitive) tiptir, sınıf değildir. Primitive tiplerin "default constructor"ı diye bir şey yoktur
+PhoneBook::PhoneBook() : totalContacts(0) {} //int bir ilkel (primitive) tiptir, sınıf değildir. Primitive tiplerin "default constructor"ı diye bir şey yoktur
 // eğer sen elle bir değer vermezsen, çöp (garbage) değer kalır, yani bellekte o an ne varsa o kalır
 PhoneBook::~PhoneBook() {}
 
@@ -31,6 +31,7 @@ int PhoneBook::takeField(std::string &field, const std::string output) //referan
 
 void PhoneBook::addContact()
 {
+    int index = 0;
     int count = 0;
     std::string firstName;
     std::string lastName;
@@ -126,24 +127,6 @@ void PhoneBook::searchContact() const
         i++;
     }
 
-    std::string promptStr;
-    int prompt;
-    bool isNumber;
-    i = 0;
-
-    std::cout << std::endl;
-    std::cout << "Enter the index of the contact to view details: ";
-
-    std::getline(std::cin, promptStr);
-    isNumber = !promptStr.empty();
-    for (size_t j = 0; j < promptStr.size(); j++)
-    {
-        if (!std::isdigit(static_cast<unsigned char>(promptStr[j])))
-        {
-            isNumber = false;
-            break;
-        }
-    }
     /*
     stringstream, bir string'i sanki bir giriş akışı gibi kullanmanı sağlıyor
     yani std::cin gibi davranıyor ama klavyeden değil, senin verdiğin string'den okuyor.
@@ -154,21 +137,19 @@ void PhoneBook::searchContact() const
     cin'i doğrudan kullanmadığımız için de programın ana giriş akışı (std::cin) hiç bozulmuyor.
     */
 
-    prompt = 0;
-    if (isNumber)
-    {
-        /*ss adında bir "sahte input stream" oluşturuyoruz.
-        İçine promptStr string'ini koyuyoruz.
-        Tıpkı std::cin >> prompt; gibi, ama klavyeden değil ss'in içindeki string'den okuyor.*/
-        std::stringstream ss(promptStr);
-        ss >> prompt;
-    }
+    std::string promptStr;
+    int prompt;
 
-    if (index >= prompt || prompt <= 0 || prompt > index + 1 || prompt > 8)
+    std::cout << std::endl;
+    std::cout << "Enter the index of the contact to view details: ";
+    std::getline(std::cin, promptStr);
+    std::stringstream ss(promptStr);
+
+    if (!(ss >> prompt) || prompt < 1 || prompt > totalContacts || prompt > 8)
     {
         std::cout << "Non-existent contact." << std::endl;
     }
-    if ((prompt <= index + 1) && index < prompt && prompt > 0)
+    else
     {
         std::cout << "First Name: " << contacts[prompt - 1].getFirstName() << std::endl;
         std::cout << "Last Name: " << contacts[prompt - 1].getLastName() << std::endl;
