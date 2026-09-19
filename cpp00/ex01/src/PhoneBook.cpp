@@ -1,10 +1,9 @@
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : totalContacts(0) {} //int bir ilkel (primitive) tiptir, sınıf değildir. Primitive tiplerin "default constructor"ı diye bir şey yoktur
-// eğer sen elle bir değer vermezsen, çöp (garbage) değer kalır, yani bellekte o an ne varsa o kalır
+PhoneBook::PhoneBook() : totalContacts(0) {}
 PhoneBook::~PhoneBook() {}
 
-int PhoneBook::takeField(std::string &field, const std::string output) //referans ile field gönderdim çünkü referans null olamaz pointer null olabilir.
+int PhoneBook::takeField(std::string &field, const std::string output)
 {
     while (1)
     {
@@ -78,7 +77,7 @@ void PhoneBook::addContact()
         }
     }
 
-    if (count == 5) //5 alanda sorunsuz doldurulduysa, yani boş alan yoksa, contact eklenir
+    if (count == 5)
     {
         index = totalContacts % 8;
 
