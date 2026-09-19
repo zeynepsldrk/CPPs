@@ -14,15 +14,22 @@ int PhoneBook::takeField(std::string &field, const std::string output)
         bool isBlank = true;
         for (size_t i = 0; i < field.size(); i++)
         {
-            if (!std::isspace((unsigned char)(field[i]))) //cast ediyoruz çünkü isspace int alır char karkterlerde işaretli karakterler 
-            //de var onların oluşturabileceği sorunları engellemk için işaretsiz char a cast ederiz
+            if (!std::isspace((unsigned char)(field[i]))) 
             {
                 isBlank = false;
                 break;
             }
+            else
+            {
+                isBlank = true;
+                std::cout << "Field cannot be empty or whitespace only. Please enter a valid " << output << std::endl;
+            }
         }
         if (field.empty() || isBlank)
+        {
+            std::cout << "Field cannot be empty or whitespace only. Please enter a valid " << output << std::endl;
             continue;
+        }
         else
             return (0);
     }
@@ -125,16 +132,6 @@ void PhoneBook::searchContact() const
             std::cout << std::setw(10) << std::right << contacts[i].getNickName() << "|" << std::endl;
         i++;
     }
-
-    /*
-    stringstream, bir string'i sanki bir giriş akışı gibi kullanmanı sağlıyor
-    yani std::cin gibi davranıyor ama klavyeden değil, senin verdiğin string'den okuyor.
-    Neden cin >> prompt yerine bunu kullanıyoruz da hata olmuyor?
-    Çünkü burada risk aldığımız yer zaten güvenli hale getirilmiş: ss'in içine koyduğumuz 
-    promptStr'in her karakterinin rakam olduğunu zaten önceden isNumber kontrolüyle doğrulamıştık.
-    Yani ss >> prompt işlemi asla "geçersiz" bir string ile karşılaşmıyor, bu yüzden stringstream'in kendi failbit'i devreye girmiyor.
-    cin'i doğrudan kullanmadığımız için de programın ana giriş akışı (std::cin) hiç bozulmuyor.
-    */
 
     std::string promptStr;
     int prompt;
