@@ -12,7 +12,7 @@ int main(int ac, char **argv)
         {
             while (argv[i][j])
             {
-                std::cout << (char)std::toupper(argv[i][j]);
+                std::cout << (char)std::toupper((unsigned char)(argv[i][j]));
                 j++;
             }
             j = 0;
