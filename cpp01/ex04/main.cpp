@@ -42,8 +42,8 @@ std::string replacer(std::string line, std::string s1, std::string s2)
 int searchAndReplace(std::string file, std::string s1, std::string s2)
 {
 	std::string line;
-	std::ifstream istreamFile(file);
-	std::ofstream outputFile(file + ".replace");
+	std::ifstream istreamFile(file.c_str());
+	std::ofstream outputFile((file + ".replace").c_str());
 	if (!istreamFile.is_open() || !outputFile.is_open())
     {
 		std::cerr << "Error: Unable to open file." << std::endl;
