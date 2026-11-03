@@ -1,31 +1,76 @@
 #include <iostream>
-#include <string.h>
+#include <string>
+#include <fstream>
 
 
-void checker(std::string file, std::string s1, std::string s2)
+int checker(std::string file, std::string s1, std::string s2)
 {
-	if(s1.empty() || s2.empty())
+	if(s1.empty())
 	{
-		std::cout << "Do not enter an empty string. Enter a string that value arguments." << std::endl;
+		std::cerr << "Do not enter an empty string. Enter a string that value argument." << std::endl;
+		return (1);
 	}
+
+	if(s1 == s2)
+	{
+		std::cerr << "Do not enter the same string. Enter a string that value arguments." << std::endl;
+		return (1);
+	}
+
+	if(file.empty())
+	{
+		std::cerr << "Do not enter an empty file. Enter a file that value arguments." << std::endl;
+		return (1);
+	}
+
+	return (0);
+}
+
+std::string replacer(std::string line, std::string s1, std::string s2)
+{
+	size_t pos = 0;
+
+    while ((pos = line.find(s1)) != std::string::npos)
+    {
+        line.erase(pos, s1.length());
+        line.insert(pos, s2);
+		pos += s2.length();
+    }
+    return line;
+}
+
+int searchAndReplace(std::string file, std::string s1, std::string s2)
+{
+	std::string line;
+	std::ifstream istreamFile(file);
+	std::ofstream outputFile(file + ".replace");
+	if (!istreamFile.is_open() || !outputFile.is_open())
+    {
+		std::cerr << "Error: Unable to open file." << std::endl;
+		return (1);
+	}
+	while(std::getline(istreamFile, line))
+	{
+		line = replacer(line, s1, s2);
+        outputFile << line;
+	}
+	outputFile.close();
+	return (0);
 }
 
 int main(int ac, char **arg)
 {
-	//argüman 1: dosya olmalı dolayısıyla açılabilmeli, var olmalı, içeriği okunabilmelidir.
-	// diğer iki argüman string olacak dosya içeriğinden ilk argüman aranıp ikinci argümanla yer 
-	//değiştirecek ve yeni kopya argüman bir.replace in içine yazılacak.
-
 	if(ac != 4)
 	{
-		std::cout << "Enter a just three arguments" << std::endl;
+		std::cerr << "Enter a just three arguments" << std::endl;
 		return (1);
 	}
-	std::string file = arg[1]; //C++'ta dosyaya ulaşmak için dosyanın kendisine değil, dosyanın konumunu ve adını belirten bir string'e ihtiyacın var.
+	std::string file = arg[1];
 	std::string s1 = arg[2];
 	std::string s2 = arg[3];
-	checker(file, s1, s2);
-	searcher();
-	repleacer();
-	copyToFile();
+	if(checker(file, s1, s2) == 1)
+		return (1);
+	if(searchAndReplace(file, s1, s2) == 1)
+		return (1);
+	return (0);
 }
