@@ -1,7 +1,7 @@
 CC      = c++
 CFLAGS  = -Wall -Wextra -Werror -std=c++
 
-NAME    = sedforlosers
+NAME    = replacement
 
 SRC_DIR = src
 
