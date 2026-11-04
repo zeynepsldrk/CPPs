@@ -42,14 +42,19 @@ std::string replacer(std::string line, std::string s1, std::string s2)
 int searchAndReplace(std::string file, std::string s1, std::string s2)
 {
 	std::string line;
-	std::ifstream istreamFile(file.c_str());
-	std::ofstream outputFile((file + ".replace").c_str());
-	if (!istreamFile.is_open() || !outputFile.is_open())
+	std::ifstream streamFile(file.c_str());
+	if (!streamFile.is_open())
     {
 		std::cerr << "Error: Unable to open file." << std::endl;
 		return (1);
 	}
-	while(std::getline(istreamFile, line))
+	std::ofstream outputFile((file + ".replace").c_str());
+	if (!outputFile.is_open())
+    {
+		std::cerr << "Error: Unable to create output file." << std::endl;
+		return (1);
+	}
+	while(std::getline(streamFile, line))
 	{
 		line = replacer(line, s1, s2);
         outputFile << line;
