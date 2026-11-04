@@ -25,4 +25,5 @@ int main(void)
     std::cout << "Deleting heap zombie -2-." << std::endl;
     delete heapZombie2;
 
+    return 0;
 }
