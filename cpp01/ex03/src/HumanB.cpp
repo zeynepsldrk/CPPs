@@ -12,5 +12,7 @@ void HumanB::setWeapon(Weapon &weapon)
 
 void HumanB::attack()
 {
+    if (bHasAWeapon == NULL)
+        return;
     std::cout << name << " attacks with their " << bHasAWeapon->getType() << std::endl;
 }
