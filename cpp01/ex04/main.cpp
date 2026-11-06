@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-int checker(std::string file, std::string s1, std::string s2)
+int checker(std::string file, std::string s1)
 {
 	if(s1.empty())
 	{
