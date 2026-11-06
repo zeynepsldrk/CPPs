@@ -11,12 +11,6 @@ int checker(std::string file, std::string s1, std::string s2)
 		return (1);
 	}
 
-	if(s1 == s2)
-	{
-		std::cerr << "Do not enter the same string. Enter a string that value arguments." << std::endl;
-		return (1);
-	}
-
 	if(file.empty())
 	{
 		std::cerr << "Do not enter an empty file. Enter a file that value arguments." << std::endl;
@@ -58,6 +52,9 @@ int searchAndReplace(std::string file, std::string s1, std::string s2)
 	{
 		line = replacer(line, s1, s2);
         outputFile << line;
+
+		if (!streamFile.eof())
+        	outputFile << '\n';
 	}
 	outputFile.close();
 	return (0);
