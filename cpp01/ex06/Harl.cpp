@@ -40,7 +40,10 @@ void Harl::complain( std::string level)
     while(i < 4)
     {
         if(levels[i] == level)
+        {
             intLevel = i;
+            break;
+        }
         i++;
     }
 
