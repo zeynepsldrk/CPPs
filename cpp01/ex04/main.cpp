@@ -70,7 +70,7 @@ int main(int ac, char **arg)
 	std::string file = arg[1];
 	std::string s1 = arg[2];
 	std::string s2 = arg[3];
-	if(checker(file, s1, s2) == 1)
+	if(checker(file, s1) == 1)
 		return (1);
 	if(searchAndReplace(file, s1, s2) == 1)
 		return (1);
