@@ -51,10 +51,13 @@ void Harl::complain( std::string level)
     {
         case 0:
             (*this.*pointerOfFunctions[0])();
+            /*fallthrough*/
         case 1:
             (*this.*pointerOfFunctions[1])();
+            /*fallthrough*/
         case 2:
             (*this.*pointerOfFunctions[2])();
+            /*fallthrough*/
         case 3:
             (*this.*pointerOfFunctions[3])();
             break;
