@@ -11,5 +11,5 @@ std::string Weapon::getType() const
 
 void Weapon::setType(std::string newType)
 {
-	newType = type;
+	type = newType;
 }
