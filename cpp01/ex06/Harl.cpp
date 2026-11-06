@@ -34,7 +34,7 @@ void Harl::complain( std::string level)
     pointerOfFunctions[2] = &Harl::warning;
     pointerOfFunctions[3] = &Harl::error;
 
-    int intLevel;
+    int intLevel = -1;
 
     int i = 0;
     while(i < 4)
