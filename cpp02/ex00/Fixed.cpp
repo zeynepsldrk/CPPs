@@ -12,11 +12,11 @@ Fixed::Fixed(const Fixed &copy)
     value = copy.getRawBits();
 }
 
-Fixed::Fixed &operator=(const Fixed &copy)
+Fixed &Fixed::operator=(const Fixed &copy)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if(this != &copy)
-        this->value = copy.getRawBits();
+        value = copy.getRawBits();
     return *this;
 }
 

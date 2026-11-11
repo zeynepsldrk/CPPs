@@ -1,6 +1,10 @@
 #include "Fixed.hpp"
 
-Fixed(const int value);
+Fixed(const int value)
+{
+    std::cout << "Int constructor called" << std::endl;
+    this->value = value << fractionalBits;
+}
 
 Fixed(const float value);
 
