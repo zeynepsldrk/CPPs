@@ -6,6 +6,7 @@ NAME    = fixed
 SRC_DIR = src
 
 SRCS    = main.cpp \
+			Fixed.cpp \
 
 OBJS    = $(SRCS:.cpp=.o)
 
