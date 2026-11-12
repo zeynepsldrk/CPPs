@@ -1,12 +1,18 @@
 #include "Fixed.hpp"
 
-Fixed(const int value)
+Fixed::Fixed(const int value)
 {
     std::cout << "Int constructor called" << std::endl;
-    this->value = value << fractionalBits;
+    (void)value;
+    this->value = toInt();
 }
 
-Fixed(const float value);
+Fixed::Fixed(const float value)
+{
+    std::cout << "Float constructor called" << std::endl;
+    (void)value;
+    this->value = (int)toFloat();
+}
 
 Fixed::Fixed()
 {
@@ -20,7 +26,7 @@ Fixed::Fixed(const Fixed &copy)
     value = copy.getRawBits();
 }
 
-Fixed::Fixed &operator=(const Fixed &copy)
+Fixed& Fixed::operator=(const Fixed &copy)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if(this != &copy)
@@ -44,8 +50,18 @@ void Fixed::setRawBits( int const raw )
     value = raw;
 }
 
-float toFloat( void ) const;
+float Fixed::toFloat( void ) const
+{
+    return ((value * 256) >> fractionalBits);
+}
 
-int toInt( void ) const;
+int Fixed::toInt( void ) const
+{
+    return value << fractionalBits;
+}
 
-void operator<<(const int &output) const;
+std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
+{
+    output << fixed.toFloat();
+    return output;
+}
