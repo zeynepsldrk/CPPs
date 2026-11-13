@@ -6,7 +6,7 @@ Fixed::Fixed(const int value)
 
     int scaled = value * (1 << fractionalBits);
 
-    if (scaled > INT_MAX || scaled < INT_MIN)
+    if (scaled > 2147483647 || scaled < -2147483648)
     {
         std::cout << "Error: Float out of range" << std::endl;
         this->value = 0;
@@ -22,7 +22,7 @@ Fixed::Fixed(const float value)
     
     float scaled = value * (1 << fractionalBits);
 
-    if (scaled > INT_MAX || scaled < INT_MIN)
+    if (scaled > 2147483647 || scaled < -2147483648)
     {
         std::cout << "Error: Float out of range" << std::endl;
         this->value = 0;
