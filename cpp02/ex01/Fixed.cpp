@@ -3,13 +3,33 @@
 Fixed::Fixed(const int value)
 {
     std::cout << "Int constructor called" << std::endl;
-    this->value = value << fractionalBits;
+
+    int scaled = value * (1 << fractionalBits);
+
+    if (scaled > INT_MAX || scaled < INT_MIN)
+    {
+        std::cout << "Error: Float out of range" << std::endl;
+        this->value = 0;
+        return;
+    }
+    else
+        this->value = value * (1 << fractionalBits);
 }
 
 Fixed::Fixed(const float value)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->value = (int)roundf(value * (1 << fractionalBits));
+    
+    float scaled = value * (1 << fractionalBits);
+
+    if (scaled > INT_MAX || scaled < INT_MIN)
+    {
+        std::cout << "Error: Float out of range" << std::endl;
+        this->value = 0;
+        return;
+    }
+    else
+        this->value = (int)roundf(value * (1 << fractionalBits));
 }
 
 Fixed::Fixed()
@@ -56,7 +76,7 @@ float Fixed::toFloat( void ) const
 
 int Fixed::toInt( void ) const
 {
-    return value >> fractionalBits;
+    return value / (1 << fractionalBits);
 }
 
 std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
