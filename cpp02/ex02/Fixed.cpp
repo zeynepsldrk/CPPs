@@ -2,13 +2,9 @@
 
 Fixed::Fixed(const int value)
 {
-    std::cout << "Int constructor called" << std::endl;
-
-    int scaled = value * (1 << fractionalBits);
-
-    if (scaled > 2147483647 || scaled < -2147483648)
+    if (value > (2147483647 / 256) || value < (-2147483648 / 256))
     {
-        std::cout << "Error: Float out of range" << std::endl;
+        std::cout << "Error: Int out of range" << std::endl;
         this->value = 0;
         return;
     }
@@ -18,11 +14,7 @@ Fixed::Fixed(const int value)
 
 Fixed::Fixed(const float value)
 {
-    std::cout << "Float constructor called" << std::endl;
-    
-    float scaled = value * (1 << fractionalBits);
-
-    if (scaled > 2147483647 || scaled < -2147483648)
+    if (value > (2147483647 / 256) || value < (-2147483648 / 256))
     {
         std::cout << "Error: Float out of range" << std::endl;
         this->value = 0;
@@ -34,33 +26,25 @@ Fixed::Fixed(const float value)
 
 Fixed::Fixed()
 {
-    std::cout << "Default constructor called" << std::endl;
     value = 0;
 }
 
 Fixed::Fixed(const Fixed &copy)
 {
-    std::cout << "Copy constructor called" << std::endl;
-    //value = copy.value;
     *this = copy;
 }
 
 Fixed& Fixed::operator=(const Fixed &copy)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
     if(this != &copy)
         this->value = copy.value;
     return *this;
 }
 
-Fixed::~Fixed()
-{
-    std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed() {}
 
 int Fixed::getRawBits( void ) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
     return value;
 }
 
@@ -127,84 +111,151 @@ bool Fixed::operator!=(Fixed &otherObject) const
     return false;
 }
 
-Fixed& Fixed::operator-(const Fixed &firstObject, const Fixed &secondObject) const
+Fixed Fixed::operator-(const Fixed &otherObject) const
 {
     Fixed result;
+    long long temp;
 
-    result.value = (firstObject.value) - (secondObject.value);
+    temp = (long long)(*this).value - otherObject.value;
+
+    if (temp > 2147483647 || temp < -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        result.value = 0;
+    }
+    else
+        result.value = (int)temp;
+
     return (result);
 }
 
-Fixed& Fixed::operator+(const Fixed &firstObject, const Fixed &secondObject) const
+Fixed Fixed::operator+(const Fixed &otherObject) const
 {
     Fixed result;
+    long long temp;
 
-    result.value = (firstObject.value) + (secondObject.value);
+    temp = (long long)(*this).value + otherObject.value;
+
+    if (temp > 2147483647 || temp < -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        result.value = 0;
+    }
+    else
+        result.value = (int)temp;
+
     return (result);
 }
 
-Fixed& Fixed::operator/(const Fixed &firstObject, const Fixed &secondObject) const
+Fixed Fixed::operator/(const Fixed &otherObject) const
 {
     Fixed result;
+    long long temp;
 
-    result.value = (firstObject.value) / (secondObject.value);
+    temp = (long long)(((*this).value) / (otherObject.value));
+
+    if (temp > 2147483647 || temp < -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        result.value = 0;
+    }
+    else
+        result.value = (int)temp;
+
     return (result);
 }
 
-Fixed& Fixed::operator*(const Fixed &firstObject, const Fixed &secondObject) const
+Fixed Fixed::operator*(const Fixed &otherObject) const
 {
     Fixed result;
+    long long temp;
 
-    result.value = (firstObject.value) * (secondObject.value);
+    temp = (long long)(((*this).value) * (otherObject.value) / 256);
+
+    if (temp > 2147483647 || temp < -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        result.value = 0;
+    }
+    else
+        result.value = (int)temp;
     return (result);
 }
 
-Fixed& Fixed::operator++(int)
+Fixed Fixed::operator++(int) //a++
 {
     Fixed temp = *this;
-    ((*this).value)++;
+
+    if(temp.value >= 2147483647)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        temp.value = 0;
+    }
+    else
+        ((*this).value)++;
     return temp;
 }
 
 Fixed& Fixed::operator++()
 {
-    return (((*this).value)++);
+    if(((*this).value) >= 2147483647)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        (*this).value = 0;
+    }
+    else
+        ((*this).value)++;
+    return (*this);
 }
 
 Fixed& Fixed::operator--()
 {
-    return (((*this).value)--);
+    if(((*this).value) <= -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        (*this).value = 0;
+    }
+    else
+        ((*this).value)--;
+    return (*this);
 }
 
-Fixed& Fixed::operator--(int)
+Fixed Fixed::operator--(int)
 {
     Fixed temp = *this;
-    ((*this).value)--;
+
+    if(temp.value <= -2147483648)
+    {
+        std::cout << "Error: Out of range" << std::endl;
+        temp.value = 0;
+    }
+    else
+        ((*this).value)--;
     return temp;
 }
 
-static Fixed& Fixed::min(Fixed &firstObject, Fixed &secondObject)
+Fixed& Fixed::min(Fixed &firstObject, Fixed &secondObject)
 {
     if((firstObject.value) > (secondObject.value))
         return secondObject;
     return firstObject;
 }
 
-static Fixed& Fixed::max(Fixed &firstObject, Fixed &secondObject)
+Fixed& Fixed::max(Fixed &firstObject, Fixed &secondObject)
 {
     if((firstObject.value) > (secondObject.value))
         return firstObject;
     return secondObject;
 }
 
-static const Fixed& Fixed::min(const Fixed &firstObject, const Fixed &secondObject)
+const Fixed& Fixed::min(const Fixed &firstObject, const Fixed &secondObject)
 {
     if((firstObject.value) > (secondObject.value))
         return secondObject;
     return firstObject;
 }
 
-static const Fixed& Fixed::max(const Fixed &firstObject, const Fixed &secondObject)
+const Fixed& Fixed::max(const Fixed &firstObject, const Fixed &secondObject)
 {
     if((firstObject.value) > (secondObject.value))
         return firstObject;

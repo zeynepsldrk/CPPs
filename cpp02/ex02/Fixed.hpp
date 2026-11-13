@@ -33,19 +33,19 @@ class Fixed {
         bool operator==(Fixed &otherObject) const;
         bool operator!=(Fixed &otherObject) const;
 
-        Fixed &operator+(const Fixed &firstObject, const Fixed &secondObject) const;
-        Fixed &operator-(const Fixed &firstObject, const Fixed &secondObject) const;
-        Fixed &operator*(const Fixed &firstObject, const Fixed &secondObject) const;
-        Fixed &operator/(const Fixed &firstObject, const Fixed &secondObject) const;
+        Fixed operator+(const Fixed &otherObject) const;
+        Fixed operator-(const Fixed &otherObject) const;
+        Fixed operator*(const Fixed &otherObject) const;
+        Fixed operator/(const Fixed &otherObject) const;
 
         Fixed &operator++();
         Fixed operator++(int);
         Fixed &operator--();
         Fixed operator--(int);
 
-        static const Fixed& min(Fixed &firstObject, Fixed &secondObject);
+        static Fixed& min(Fixed &firstObject, Fixed &secondObject);
         static const Fixed& min(const Fixed &firstObject, const Fixed &secondObject);
-        static const Fixed& max(Fixed &firstObject, Fixed &secondObject);
+        static Fixed& max(Fixed &firstObject, Fixed &secondObject);
         static const Fixed& max(const Fixed &firstObject, const Fixed &secondObject);
 };
 
