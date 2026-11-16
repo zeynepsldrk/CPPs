@@ -1,41 +1,25 @@
-#include "Point_hpp"
+#include "Point.hpp"
 
-Point::Point()
-{
-    _x = 0;
-    _y = 0;
-}
+Point::Point() : _x(0), _y(0) {}
 
 Point& Point::operator=(const Point &copy)
 {
-    if(this != &copy)
-    {
-        _x = copy.x;
-        _y = copy.y;
-    }
+    (void)copy;
     return *this;
 }
 
-Point::Point(const Point &copy)
-{
-    _x = copy.x;
-    _y = copy.y;
-}
+Point::Point(const Point &copy) : _x(copy._x), _y(copy._y) {}
 
 Point::~Point() {}
 
-Point::Point(const float x, const float y)
-{
-    _x = x;
-    _y = y;
-}
+Point::Point(const float x, const float y) : _x(x), _y(y) {}
 
-Point Point::getX () const
+Fixed Point::getX () const
 {
     return _x;
 }
 
-Point Point::getY () const
+Fixed Point::getY () const
 {
     return _y;
 }

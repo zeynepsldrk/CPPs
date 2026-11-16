@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "Fixed.hpp"
 
 class Point {
 
@@ -16,13 +17,11 @@ class Point {
         ~Point();
 
         Point(const float x, const float y);
-
-        float getX (void) const;
-        float getY (void) const;
-        bool bsp( Point const a, Point const b, Point const c, Point const point);
-
-
+        Fixed getX (void) const;
+        Fixed getY (void) const;
+        
 };
 
+bool bsp( Point const a, Point const b, Point const c, Point const point);
 
 #endif
