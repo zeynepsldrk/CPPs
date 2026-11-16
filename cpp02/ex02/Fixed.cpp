@@ -69,42 +69,42 @@ std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
     return output;
 }
 
-bool Fixed::operator>(Fixed &otherObject) const
+bool Fixed::operator>(const Fixed &otherObject) const
 {
     if(((*this).value) > (otherObject.value))
         return true;
     return false;
 }
 
-bool Fixed::operator>=(Fixed &otherObject) const
+bool Fixed::operator>=(const Fixed &otherObject) const
 {
     if(((*this).value) >= (otherObject.value))
         return true;
     return false;
 }
 
-bool Fixed::operator<(Fixed &otherObject) const
+bool Fixed::operator<(const Fixed &otherObject) const
 {
     if(((*this).value) < (otherObject.value))
         return true;
     return false;
 }
 
-bool Fixed::operator<=(Fixed &otherObject) const
+bool Fixed::operator<=(const Fixed &otherObject) const
 {
     if(((*this).value) <= (otherObject.value))
         return true;
     return false;
 }
 
-bool Fixed::operator==(Fixed &otherObject) const
+bool Fixed::operator==(const Fixed &otherObject) const
 {
     if(((*this).value) == (otherObject.value))
         return true;
     return false;
 }
 
-bool Fixed::operator!=(Fixed &otherObject) const
+bool Fixed::operator!=(const Fixed &otherObject) const
 {
     if(((*this).value) != (otherObject.value))
         return true;
@@ -152,7 +152,8 @@ Fixed Fixed::operator/(const Fixed &otherObject) const
     Fixed result;
     long long temp;
 
-    temp = (long long)(((*this).value) / (otherObject.value));
+    temp = (long long)((*this).value) * 256;
+    temp /= otherObject.value;
 
     if (temp > 2147483647 || temp < -2147483648)
     {
@@ -170,7 +171,8 @@ Fixed Fixed::operator*(const Fixed &otherObject) const
     Fixed result;
     long long temp;
 
-    temp = (long long)(((*this).value) * (otherObject.value) / 256);
+    temp = (long long)((*this).value) * (otherObject.value);
+    temp /= 256;
 
     if (temp > 2147483647 || temp < -2147483648)
     {
@@ -182,15 +184,12 @@ Fixed Fixed::operator*(const Fixed &otherObject) const
     return (result);
 }
 
-Fixed Fixed::operator++(int) //a++
+Fixed Fixed::operator++(int)
 {
     Fixed temp = *this;
 
     if(temp.value >= 2147483647)
-    {
         std::cout << "Error: Out of range" << std::endl;
-        temp.value = 0;
-    }
     else
         ((*this).value)++;
     return temp;
@@ -199,10 +198,7 @@ Fixed Fixed::operator++(int) //a++
 Fixed& Fixed::operator++()
 {
     if(((*this).value) >= 2147483647)
-    {
         std::cout << "Error: Out of range" << std::endl;
-        (*this).value = 0;
-    }
     else
         ((*this).value)++;
     return (*this);
@@ -211,10 +207,7 @@ Fixed& Fixed::operator++()
 Fixed& Fixed::operator--()
 {
     if(((*this).value) <= -2147483648)
-    {
         std::cout << "Error: Out of range" << std::endl;
-        (*this).value = 0;
-    }
     else
         ((*this).value)--;
     return (*this);
@@ -225,10 +218,7 @@ Fixed Fixed::operator--(int)
     Fixed temp = *this;
 
     if(temp.value <= -2147483648)
-    {
         std::cout << "Error: Out of range" << std::endl;
-        temp.value = 0;
-    }
     else
         ((*this).value)--;
     return temp;
