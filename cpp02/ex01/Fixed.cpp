@@ -22,7 +22,7 @@ Fixed::Fixed(const float value)
     
     float scaled = value * (1 << fractionalBits);
 
-    if (scaled > 2147483647 || scaled < -2147483648)
+    if (scaled > 2147483647.0 || scaled < -2147483648.0)
     {
         std::cout << "Error: Float out of range" << std::endl;
         this->value = 0;
@@ -41,7 +41,6 @@ Fixed::Fixed()
 Fixed::Fixed(const Fixed &copy)
 {
     std::cout << "Copy constructor called" << std::endl;
-    //value = copy.value;
     *this = copy;
 }
 

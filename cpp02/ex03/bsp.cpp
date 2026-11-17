@@ -26,8 +26,6 @@ bool bsp( Point const a, Point const b, Point const c, Point const point)
 
 	float vector3 = (tempVectorX.getRawBits() * tempVectorX2.getRawBits()) - (tempVectorY.getRawBits() * tempVectorY2.getRawBits());
 
-	std::cout << "cp1: " << vector << " | cp2: " << vector2 << " | cp3: " << vector3 << std::endl;
-
 
     if(vector < 0 && vector2 < 0 && vector3 < 0)
         return true;
