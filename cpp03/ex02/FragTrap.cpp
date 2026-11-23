@@ -3,8 +3,8 @@
 FragTrap::FragTrap()
 {
 	std::cout << "FragTrap default constructor called" << std::endl;
-	_hitPoint = 100;
-	_energyPoint = 100;
+	_hitPoints = 100;
+	_energyPoints = 100;
 	_attackDamage = 30;
 }
 
@@ -25,8 +25,8 @@ FragTrap& FragTrap::operator=(const FragTrap &copy)
 	if (this != &copy)
 	{
 		this->_name = copy._name;
-		this->_hitPoint = copy._hitPoint;
-		this->_energyPoint = copy._energyPoint;
+		this->_hitPoints = copy._hitPoints;
+		this->_energyPoints = copy._energyPoints;
 		this->_attackDamage = copy._attackDamage;
 	}
 	return *this;
@@ -36,8 +36,8 @@ FragTrap::FragTrap(std::string name)
 {
 	std::cout << "FragTrap constructor with the name parameter called" << std::endl;
 	this->_name = name;
-	this->_hitPoint = 100;
-	this->_energyPoint = 100;
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
 	this->_attackDamage = 30;
 }
 
