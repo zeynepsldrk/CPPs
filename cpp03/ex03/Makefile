@@ -1,5 +1,5 @@
 CC      = c++
-CFLAGS  = -Wall -Wextra -Werror -std=c++98
+CFLAGS  = -Wall -Wextra -Werror -Wshadow -Wno-shadow -std=c++98
 
 NAME    = diamondTrap
 
@@ -7,7 +7,9 @@ SRC_DIR = src
 
 SRCS    = main.cpp \
 			ClapTrap.cpp \
-			DiamondTrap.cpp \
+			FragTrap.cpp \
+			ScavTrap.cpp \
+			DiamondTrap.cpp
 
 OBJS    = $(SRCS:.cpp=.o)
 

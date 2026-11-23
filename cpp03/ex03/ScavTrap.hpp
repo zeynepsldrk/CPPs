@@ -4,7 +4,7 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap //public kalıtım hem subject gereksimi hem de super classın public ve protected üyelerine erişim sağlar.
+class ScavTrap : virtual public ClapTrap
 {
     public :
         ScavTrap();
